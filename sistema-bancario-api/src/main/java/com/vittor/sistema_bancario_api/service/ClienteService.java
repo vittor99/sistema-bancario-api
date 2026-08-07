@@ -1,4 +1,22 @@
 package com.vittor.sistema_bancario_api.service;
 
+//import com.vittor.sistema_bancario_api.repository.ClienteRepository;
+import com.vittor.sistema_bancario_api.entity.Cliente;
+import com.vittor.sistema_bancario_api.repository.ClienteRepository;
+import org.springframework.stereotype.Service;
+
+@Service
 public class ClienteService {
+    private final ClienteRepository clienteRepository;
+
+    public ClienteService (ClienteRepository clienteRepository){
+        this.clienteRepository = clienteRepository;
+    }
+
+    public Cliente salvar(Cliente cliente){
+        return clienteRepository.save(cliente);
+    }
+
+
+
 }
