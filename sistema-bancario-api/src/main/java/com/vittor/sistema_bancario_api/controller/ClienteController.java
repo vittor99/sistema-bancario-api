@@ -2,10 +2,7 @@ package com.vittor.sistema_bancario_api.controller;
 
 import com.vittor.sistema_bancario_api.entity.Cliente;
 import com.vittor.sistema_bancario_api.service.ClienteService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -28,7 +25,10 @@ public class ClienteController {
         return clienteService.listarClientes();
     }
 
-
+    @GetMapping("/clientes/{id}")
+    public Cliente buscarCliente (@PathVariable Long id){
+        return clienteService.buscarCliente(id);
+    }
 
 
 

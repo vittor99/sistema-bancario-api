@@ -24,5 +24,10 @@ public class ClienteService {
     }
 
 
+    public Cliente buscarCliente (Long id){
+        return clienteRepository.findById(id).orElseThrow();
+    }
+
+
 
 }
