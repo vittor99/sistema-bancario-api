@@ -30,7 +30,10 @@ public class ClienteController {
         return clienteService.buscarCliente(id);
     }
 
-
+    @PutMapping("/clientes/{id}")
+    public Cliente atualizarCliente (@PathVariable Long id, @RequestBody Cliente cliente){
+        return clienteService.atualizarCliente(id, cliente);
+    }
 
 
 }

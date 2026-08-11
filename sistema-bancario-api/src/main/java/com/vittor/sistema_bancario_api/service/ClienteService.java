@@ -29,5 +29,19 @@ public class ClienteService {
     }
 
 
+    public Cliente atualizarCliente(Long id,Cliente cliente){
+        Cliente clienteExistente = clienteRepository.findById(id).orElseThrow();
+
+        clienteExistente.atualizarDados(
+                cliente.getNome(),
+                cliente.getEmail(),
+                cliente.getTelefone()
+        );
+
+        return clienteRepository.save(clienteExistente);
+
+    }
+
+
 
 }
