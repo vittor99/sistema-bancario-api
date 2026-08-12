@@ -43,5 +43,14 @@ public class ClienteService {
     }
 
 
+    public void deletarCliente (Long id){
+        Cliente cliente = clienteRepository.findById(id)
+                .orElseThrow();
+        clienteRepository.delete(cliente);
+    }
+
+
+
+
 
 }
