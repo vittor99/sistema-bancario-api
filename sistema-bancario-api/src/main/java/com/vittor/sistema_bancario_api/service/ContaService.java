@@ -1,15 +1,28 @@
 package com.vittor.sistema_bancario_api.service;
 
+import com.vittor.sistema_bancario_api.entity.Cliente;
+import com.vittor.sistema_bancario_api.entity.Conta;
+import com.vittor.sistema_bancario_api.repository.ClienteRepository;
 import com.vittor.sistema_bancario_api.repository.ContaRepository;
 import org.springframework.stereotype.Service;
 
 @Service
 public class ContaService {
     private final ContaRepository contaRepository;
+    private final ClienteRepository clienteRepository;
 
-
-    public ContaService (ContaRepository contaRepository){
+    public ContaService (ContaRepository contaRepository, ClienteRepository clienteRepository){//revisar
         this.contaRepository = contaRepository;
+        this.clienteRepository = clienteRepository;
+    }
+
+    public Conta salvarConta(Long clienteId, Conta conta) {
+        Cliente cliente = clienteRepository.findById(clienteId).orElseThrow();
+
+        conta.definirCliente(cliente);
+
+        return contaRepository.save(conta);
+
     }
 
 

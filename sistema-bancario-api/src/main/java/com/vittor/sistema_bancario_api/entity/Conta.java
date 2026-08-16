@@ -16,11 +16,11 @@ public class Conta {
     private Cliente cliente;
 
 
-    public Conta (){
+    public Conta() {
 
     }
 
-    public Conta ( Long numero, BigDecimal saldo, boolean ativa, Cliente cliente){
+    public Conta(Long numero, BigDecimal saldo, boolean ativa, Cliente cliente) {
         this.numero = numero;
         this.saldo = saldo;
         this.ativa = ativa;
@@ -35,14 +35,17 @@ public class Conta {
         return numero;
     }
 
-    public BigDecimal getSaldo(){
+    public BigDecimal getSaldo() {
         return saldo;
     }
 
-    public Cliente getCliente(){
+    public Cliente getCliente() {
         return cliente;
     }
 
+    public void definirCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
 
 
 }
