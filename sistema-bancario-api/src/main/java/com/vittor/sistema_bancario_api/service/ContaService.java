@@ -6,6 +6,8 @@ import com.vittor.sistema_bancario_api.repository.ClienteRepository;
 import com.vittor.sistema_bancario_api.repository.ContaRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ContaService {
     private final ContaRepository contaRepository;
@@ -25,6 +27,9 @@ public class ContaService {
 
     }
 
+    public List<Conta> listarContas (){
+        return contaRepository.findAll();
+    }
 
 
 
