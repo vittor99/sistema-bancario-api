@@ -25,9 +25,9 @@ public class ClienteController {
         return clienteService.listarClientes();
     }
 
-    @GetMapping("/clientes/{id}")
-    public Cliente buscarCliente (@PathVariable Long id){
-        return clienteService.buscarCliente(id);
+    @GetMapping("/clientes/{cpf}")
+    public Cliente buscarClientePorCpf (@PathVariable String cpf){
+        return clienteService.buscarClientePorCpf(cpf);
     }
 
     @PutMapping("/clientes/{id}")

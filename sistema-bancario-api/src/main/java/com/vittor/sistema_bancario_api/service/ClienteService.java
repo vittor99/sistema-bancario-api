@@ -24,8 +24,8 @@ public class ClienteService {
     }
 
 
-    public Cliente buscarCliente (Long id){
-        return clienteRepository.findById(id).orElseThrow();
+    public Cliente buscarClientePorCpf (String cpf){
+        return clienteRepository.findByCpf(cpf).orElseThrow();
     }
 
 

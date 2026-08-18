@@ -10,9 +10,10 @@ public class Cliente {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nome;
-    private String cpf;
     private String email;
     private String telefone;
+    @Column(unique = true)
+    private String cpf;
     @OneToMany(mappedBy = "cliente")
     private List<Conta> contas;
 
