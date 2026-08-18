@@ -32,6 +32,13 @@ public class ContaService {
     }
 
 
+    public Conta buscarContaPorNumero(Long numero){
+        return contaRepository.findByNumero(numero).orElseThrow();
+    }
+
+
+
+
 
 
 

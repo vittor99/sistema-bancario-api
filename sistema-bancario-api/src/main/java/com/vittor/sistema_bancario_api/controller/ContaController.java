@@ -24,6 +24,12 @@ public class ContaController {
         return contaService.listarContas();
     }
 
+    @GetMapping("/contas/{numero}")
+    public Conta buscarContaPorNumero(@PathVariable Long numero){
+        return contaService.buscarContaPorNumero(numero);
+    }
+
+
 
 
 }
