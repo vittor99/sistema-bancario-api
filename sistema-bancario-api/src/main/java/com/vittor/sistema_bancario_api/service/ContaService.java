@@ -6,6 +6,7 @@ import com.vittor.sistema_bancario_api.repository.ClienteRepository;
 import com.vittor.sistema_bancario_api.repository.ContaRepository;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Service
@@ -34,6 +35,13 @@ public class ContaService {
 
     public Conta buscarContaPorNumero(Long numero){
         return contaRepository.findByNumero(numero).orElseThrow();
+    }
+
+    public Conta depositar (Long numero, BigDecimal valor){
+        Conta conta= contaRepository.findByNumero(numero).orElseThrow();
+        conta.depositar(valor);
+        contaRepository.save(conta);
+        return conta;
     }
 
 

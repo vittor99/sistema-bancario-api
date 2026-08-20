@@ -47,5 +47,12 @@ public class Conta {
         this.cliente = cliente;
     }
 
+    public void depositar (BigDecimal valor){
+        if (valor.compareTo(BigDecimal.ZERO) > 0) {
+            saldo = saldo.add(valor);
+        }
+
+    }
+
 
 }
