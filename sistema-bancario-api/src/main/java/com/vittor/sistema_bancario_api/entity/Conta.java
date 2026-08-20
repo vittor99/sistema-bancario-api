@@ -51,8 +51,10 @@ public class Conta {
         if (valor.compareTo(BigDecimal.ZERO) > 0) {
             saldo = saldo.add(valor);
         }
-
     }
-
-
+    public void sacar(BigDecimal valor){
+        if (valor.compareTo(BigDecimal.ZERO) > 0){
+            saldo = saldo.subtract(valor);
+        }
+    }
 }

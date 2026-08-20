@@ -44,7 +44,12 @@ public class ContaService {
         return conta;
     }
 
-
+    public Conta sacar (Long numero, BigDecimal valor){
+        Conta conta = contaRepository.findByNumero(numero).orElseThrow();
+        conta.sacar(valor);
+        contaRepository.save(conta);
+        return conta;
+    }
 
 
 

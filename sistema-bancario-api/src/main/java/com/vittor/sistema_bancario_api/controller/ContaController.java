@@ -1,6 +1,7 @@
 package com.vittor.sistema_bancario_api.controller;
 
 import com.vittor.sistema_bancario_api.dto.DepositoDTO;
+import com.vittor.sistema_bancario_api.dto.SaqueDTO;
 import com.vittor.sistema_bancario_api.entity.Conta;
 import com.vittor.sistema_bancario_api.service.ContaService;
 import org.springframework.web.bind.annotation.*;
@@ -35,7 +36,10 @@ public class ContaController {
         return contaService.depositar(numero,depositoDTO.getValor());
     }
 
-
+    @PostMapping("/contas/{numero}/sacar")
+    public Conta sacar (@PathVariable Long numero,@RequestBody SaqueDTO saqueDTO){
+        return contaService.sacar(numero,saqueDTO.getValor());
+    }
 
 
 }
