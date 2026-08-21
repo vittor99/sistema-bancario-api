@@ -51,6 +51,20 @@ public class ContaService {
         return conta;
     }
 
+    public Conta transferir (Long numeroOrigem, Long numeroDestino, BigDecimal valor){
+        Conta contaOrigem = contaRepository.findByNumero(numeroOrigem).orElseThrow();
+        Conta contaDestino = contaRepository.findByNumero(numeroDestino).orElseThrow();
+
+        contaOrigem.sacar(valor);
+        contaDestino.depositar(valor);
+
+        contaRepository.save(contaOrigem);
+        contaRepository.save(contaDestino);
+
+        return contaOrigem;
+
+    }
+
 
 
 
