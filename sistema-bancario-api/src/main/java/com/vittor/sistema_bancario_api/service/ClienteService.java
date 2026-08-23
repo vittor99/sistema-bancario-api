@@ -1,7 +1,9 @@
 package com.vittor.sistema_bancario_api.service;
 
 //import com.vittor.sistema_bancario_api.repository.ClienteRepository;
+
 import com.vittor.sistema_bancario_api.entity.Cliente;
+import com.vittor.sistema_bancario_api.exception.CpfJaCadastradoException;
 import com.vittor.sistema_bancario_api.repository.ClienteRepository;
 import org.springframework.stereotype.Service;
 
@@ -11,25 +13,28 @@ import java.util.List;
 public class ClienteService {
     private final ClienteRepository clienteRepository;
 
-    public ClienteService (ClienteRepository clienteRepository){
+    public ClienteService(ClienteRepository clienteRepository) {
         this.clienteRepository = clienteRepository;
     }
 
-    public Cliente salvar(Cliente cliente){
+    public Cliente salvar(Cliente cliente) {
+        if (clienteRepository.findByCpf(cliente.getCpf()).isPresent()){
+            throw new CpfJaCadastradoException("CPF já cadastrado");
+        }
         return clienteRepository.save(cliente);
     }
 
-    public List<Cliente> listarClientes (){
+    public List<Cliente> listarClientes() {
         return clienteRepository.findAll();
     }
 
 
-    public Cliente buscarClientePorCpf (String cpf){
+    public Cliente buscarClientePorCpf(String cpf) {
         return clienteRepository.findByCpf(cpf).orElseThrow();
     }
 
 
-    public Cliente atualizarCliente(Long id,Cliente cliente){
+    public Cliente atualizarCliente(Long id, Cliente cliente) {
         Cliente clienteExistente = clienteRepository.findById(id).orElseThrow();
 
         clienteExistente.atualizarDados(
@@ -43,15 +48,11 @@ public class ClienteService {
     }
 
 
-    public void deletarCliente (Long id){
+    public void deletarCliente(Long id) {
         Cliente cliente = clienteRepository.findById(id)
                 .orElseThrow();
         clienteRepository.delete(cliente);
     }
-
-
-
-
 
 
 }
