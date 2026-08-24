@@ -1,7 +1,9 @@
 package com.vittor.sistema_bancario_api.controller;
 
+import com.vittor.sistema_bancario_api.dto.ClienteDTO;
 import com.vittor.sistema_bancario_api.entity.Cliente;
 import com.vittor.sistema_bancario_api.service.ClienteService;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,7 +18,13 @@ public class ClienteController {
         }
 
     @PostMapping("/clientes")
-    public Cliente salvar(@RequestBody Cliente cliente) {
+    public Cliente salvar(@Valid @RequestBody ClienteDTO clienteDTO) {
+        Cliente cliente = new Cliente(
+                clienteDTO.getNome(),
+                clienteDTO.getCpf(),
+                clienteDTO.getEmail(),
+                clienteDTO.getTelefone()
+        );
         return clienteService.salvar(cliente);
     }
 

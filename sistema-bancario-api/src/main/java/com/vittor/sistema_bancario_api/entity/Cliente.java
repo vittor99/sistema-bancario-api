@@ -1,6 +1,7 @@
 package com.vittor.sistema_bancario_api.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 
 import java.util.List;
 
