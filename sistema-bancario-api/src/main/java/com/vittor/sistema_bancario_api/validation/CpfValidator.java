@@ -8,6 +8,21 @@ public class CpfValidator implements ConstraintValidator<ValidCpf, String> {
     @Override
     public boolean isValid(String cpf, ConstraintValidatorContext context) {
 
+        // Se o CPF estiver vazio ou não tiver exatamente 11 números,
+        // essa validação matemática não é executada.
+        // @NotBlank e @Pattern são responsáveis por esses erros.
+        if (cpf == null || !cpf.matches("\\d{11}")) {
+            return true;
+        }
+        // Rejeita CPFs formados pelo mesmo número repetido.
+        // chars() transforma os caracteres do CPF em um fluxo.
+        // distinct() remove os caracteres repetidos.
+        // count() conta quantos caracteres diferentes sobraram.
+        // Se sobrar apenas 1, significa que todos os dígitos são iguais.
+        if (cpf.chars().distinct().count() == 1) {
+            return false;
+        }
+
         int primeiroDigitoCalculado = calcularPrimeiroDigito(cpf);
 
         int primeiroDigitoInformado =
@@ -33,6 +48,7 @@ public class CpfValidator implements ConstraintValidator<ValidCpf, String> {
 
         return 11 - resto;
     }
+
     private int calcularSegundoDigito(String cpf) {
 
         int soma = 0;

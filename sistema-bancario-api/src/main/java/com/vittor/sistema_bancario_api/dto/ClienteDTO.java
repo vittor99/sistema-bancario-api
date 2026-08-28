@@ -1,5 +1,6 @@
 package com.vittor.sistema_bancario_api.dto;
 
+import com.vittor.sistema_bancario_api.validation.ValidCpf;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
@@ -9,8 +10,8 @@ public class ClienteDTO {
     @NotBlank(message = "O nome é obrigatório")
     private String nome;
     @NotBlank(message = "O CPF é obrigatório")
-    @Size(min = 11, max = 11, message = "O CPF deve ter 11 caracteres")
     @Pattern(regexp = "\\d{11}", message = "O CPF deve conter 11 números") //para receber apenas numeros
+    @ValidCpf
     private String cpf;
     @NotBlank(message = "O email é obrigatório")
     @Email(message ="O email deve ser válido")
