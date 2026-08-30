@@ -5,6 +5,7 @@ import com.vittor.sistema_bancario_api.dto.SaqueDTO;
 import com.vittor.sistema_bancario_api.dto.TransferenciaDTO;
 import com.vittor.sistema_bancario_api.entity.Conta;
 import com.vittor.sistema_bancario_api.service.ContaService;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -43,7 +44,7 @@ public class ContaController {
     }
 
     @PostMapping("/contas/{numeroOrigem}/transferir/{numeroDestino}")
-    public Conta transferir (@PathVariable Long numeroOrigem, @PathVariable Long numeroDestino, @RequestBody TransferenciaDTO transferenciaDTO){
+    public Conta transferir (@Valid @PathVariable Long numeroOrigem, @PathVariable Long numeroDestino, @RequestBody TransferenciaDTO transferenciaDTO){//Para ativar a validação desse DTO no controller, é só adicionar @Valid
         return contaService.transferir(numeroOrigem,numeroDestino,transferenciaDTO.getValor());
     }
 
