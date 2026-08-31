@@ -18,36 +18,40 @@ public class ContaController {
         this.contaService = contaService;
     }
 
-    @PostMapping("/contas/{ClienteId}")
-    public Conta salvarConta (@PathVariable Long ClienteId, @RequestBody Conta conta){
-        return contaService.salvarConta(ClienteId, conta);
+    @PostMapping("/contas/{clienteId}")
+    public Conta salvarConta(@PathVariable Long clienteId) {
+        return contaService.salvarConta(clienteId);
     }
 
     @GetMapping("/contas")
-    public List<Conta> listarContas (){
+    public List<Conta> listarContas() {
         return contaService.listarContas();
     }
 
     @GetMapping("/contas/{numero}")
-    public Conta buscarContaPorNumero(@PathVariable Long numero){
+    public Conta buscarContaPorNumero(@PathVariable Long numero) {
         return contaService.buscarContaPorNumero(numero);
     }
 
     @PostMapping("/contas/{numero}/deposito")
-    public Conta depositar (@PathVariable Long numero,@Valid  @RequestBody DepositoDTO depositoDTO){
-        return contaService.depositar(numero,depositoDTO.getValor());
+    public Conta depositar(@PathVariable Long numero, @Valid @RequestBody DepositoDTO depositoDTO) {
+        return contaService.depositar(numero, depositoDTO.getValor());
     }
 
     @PostMapping("/contas/{numero}/sacar")
-    public Conta sacar (@PathVariable Long numero,@Valid @RequestBody SaqueDTO saqueDTO){
-        return contaService.sacar(numero,saqueDTO.getValor());
+    public Conta sacar(@PathVariable Long numero, @Valid @RequestBody SaqueDTO saqueDTO) {
+        return contaService.sacar(numero, saqueDTO.getValor());
     }
 
     @PostMapping("/contas/{numeroOrigem}/transferir/{numeroDestino}")
-    public Conta transferir (@Valid @PathVariable Long numeroOrigem, @PathVariable Long numeroDestino, @RequestBody TransferenciaDTO transferenciaDTO){//Para ativar a validação desse DTO no controller, é só adicionar @Valid
-        return contaService.transferir(numeroOrigem,numeroDestino,transferenciaDTO.getValor());
+    public Conta transferir(@Valid @PathVariable Long numeroOrigem, @PathVariable Long numeroDestino, @RequestBody TransferenciaDTO transferenciaDTO) {//Para ativar a validação desse DTO no controller, é só adicionar @Valid
+        return contaService.transferir(numeroOrigem, numeroDestino, transferenciaDTO.getValor());
     }
 
+    @DeleteMapping("/contas/{id}")
+    public void deletarConta(@PathVariable Long id) {
+        contaService.deletarConta(id);
+    }
 
 
 }

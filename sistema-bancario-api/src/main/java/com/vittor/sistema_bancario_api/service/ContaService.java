@@ -19,11 +19,19 @@ public class ContaService {
         this.clienteRepository = clienteRepository;
     }
 
-    public Conta salvarConta(Long clienteId, Conta conta) {
+    public Conta salvarConta(Long clienteId) {
         Cliente cliente = clienteRepository.findById(clienteId).orElseThrow();
 
-        conta.definirCliente(cliente);
+        Long maiorNumero = contaRepository.buscarMaiorNumero();
+        Long proximoNumero;
 
+        if (maiorNumero == null){
+            proximoNumero = 1000L;
+        }else{
+            proximoNumero = maiorNumero + 1;
+        }
+
+        Conta conta = new Conta(proximoNumero, cliente);
         return contaRepository.save(conta);
 
     }
@@ -63,6 +71,11 @@ public class ContaService {
 
         return contaOrigem;
 
+    }
+
+    public void deletarConta (Long id){
+        Conta conta = contaRepository.findById(id).orElseThrow();
+        contaRepository.delete(conta);
     }
 
 

@@ -21,10 +21,10 @@ public class Conta {
 
     }
 
-    public Conta(Long numero, BigDecimal saldo, boolean ativa, Cliente cliente) {
+    public Conta(Long numero, Cliente cliente) {
         this.numero = numero;
-        this.saldo = saldo;
-        this.ativa = ativa;
+        this.saldo = BigDecimal.ZERO;
+        this.ativa = true;
         this.cliente = cliente;
     }
 
@@ -42,10 +42,6 @@ public class Conta {
 
     public Cliente getCliente() {
         return cliente;
-    }
-
-    public void definirCliente(Cliente cliente) {
-        this.cliente = cliente;
     }
 
     public void depositar (BigDecimal valor){

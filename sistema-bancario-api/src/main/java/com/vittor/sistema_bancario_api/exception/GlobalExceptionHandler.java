@@ -21,6 +21,16 @@ public class GlobalExceptionHandler {
 
     }
 
+    @ExceptionHandler(SaldoInsuficienteException.class)
+    public ResponseEntity<?> tratarSaldoInsuficiente(SaldoInsuficienteException exception){
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .body(Map.of("erro", exception.getMessage()));
+    }
+
+
+
+
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<?> tratarErroValidacao(MethodArgumentNotValidException exception) {
 
