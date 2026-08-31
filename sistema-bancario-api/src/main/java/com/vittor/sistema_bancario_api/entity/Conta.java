@@ -1,5 +1,6 @@
 package com.vittor.sistema_bancario_api.entity;
 
+import com.vittor.sistema_bancario_api.exception.SaldoInsuficienteException;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
@@ -54,8 +55,10 @@ public class Conta {
     }
 
     public void sacar(BigDecimal valor){
-        if (valor.compareTo(BigDecimal.ZERO) > 0){
-            saldo = saldo.subtract(valor);
+        if (saldo.compareTo(valor) < 0) {
+            throw new SaldoInsuficienteException("Saldo insuficiente para realizar o saque");
         }
+            saldo = saldo.subtract(valor);
+
     }
 }

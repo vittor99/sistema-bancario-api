@@ -34,12 +34,12 @@ public class ContaController {
     }
 
     @PostMapping("/contas/{numero}/deposito")
-    public Conta depositar (@PathVariable Long numero, @RequestBody DepositoDTO depositoDTO){
+    public Conta depositar (@PathVariable Long numero,@Valid  @RequestBody DepositoDTO depositoDTO){
         return contaService.depositar(numero,depositoDTO.getValor());
     }
 
     @PostMapping("/contas/{numero}/sacar")
-    public Conta sacar (@PathVariable Long numero,@RequestBody SaqueDTO saqueDTO){
+    public Conta sacar (@PathVariable Long numero,@Valid @RequestBody SaqueDTO saqueDTO){
         return contaService.sacar(numero,saqueDTO.getValor());
     }
 

@@ -12,9 +12,6 @@ public class DepositoDTO {
 
     }
 
-    public DepositoDTO(BigDecimal valor) {
-        this.valor = valor;
-    }
 
     public BigDecimal getValor() {
         return valor;
