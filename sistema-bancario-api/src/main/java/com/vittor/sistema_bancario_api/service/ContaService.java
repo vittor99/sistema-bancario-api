@@ -2,6 +2,8 @@ package com.vittor.sistema_bancario_api.service;
 
 import com.vittor.sistema_bancario_api.entity.Cliente;
 import com.vittor.sistema_bancario_api.entity.Conta;
+import com.vittor.sistema_bancario_api.exception.ClienteNaoEncontradoException;
+import com.vittor.sistema_bancario_api.exception.ContaNaoEncontradoException;
 import com.vittor.sistema_bancario_api.repository.ClienteRepository;
 import com.vittor.sistema_bancario_api.repository.ContaRepository;
 import org.springframework.stereotype.Service;
@@ -20,7 +22,7 @@ public class ContaService {
     }
 
     public Conta salvarConta(Long clienteId) {
-        Cliente cliente = clienteRepository.findById(clienteId).orElseThrow();
+        Cliente cliente = clienteRepository.findById(clienteId).orElseThrow(()-> new ClienteNaoEncontradoException("Cliente nao encontrado!"));
 
         Long maiorNumero = contaRepository.buscarMaiorNumero();
         Long proximoNumero;
@@ -42,26 +44,26 @@ public class ContaService {
 
 
     public Conta buscarContaPorNumero(Long numero){
-        return contaRepository.findByNumero(numero).orElseThrow();
+        return contaRepository.findByNumero(numero).orElseThrow(()-> new ContaNaoEncontradoException("Conta nao encontrada!"));
     }
 
     public Conta depositar (Long numero, BigDecimal valor){
-        Conta conta= contaRepository.findByNumero(numero).orElseThrow();
+        Conta conta= contaRepository.findByNumero(numero).orElseThrow(()-> new ContaNaoEncontradoException("Conta nao encontrada!"));
         conta.depositar(valor);
         contaRepository.save(conta);
         return conta;
     }
 
     public Conta sacar (Long numero, BigDecimal valor){
-        Conta conta = contaRepository.findByNumero(numero).orElseThrow();
+        Conta conta = contaRepository.findByNumero(numero).orElseThrow(()-> new ContaNaoEncontradoException("Conta nao encontrada!"));
         conta.sacar(valor);
         contaRepository.save(conta);
         return conta;
     }
 
     public Conta transferir (Long numeroOrigem, Long numeroDestino, BigDecimal valor){
-        Conta contaOrigem = contaRepository.findByNumero(numeroOrigem).orElseThrow();
-        Conta contaDestino = contaRepository.findByNumero(numeroDestino).orElseThrow();
+        Conta contaOrigem = contaRepository.findByNumero(numeroOrigem).orElseThrow(()-> new ContaNaoEncontradoException("Conta nao encontrada!"));
+        Conta contaDestino = contaRepository.findByNumero(numeroDestino).orElseThrow(()-> new ContaNaoEncontradoException("Conta nao encontrada!"));
 
         contaOrigem.sacar(valor);
         contaDestino.depositar(valor);
@@ -74,12 +76,12 @@ public class ContaService {
     }
 
     public void deletarConta (Long id){
-        Conta conta = contaRepository.findById(id).orElseThrow();
+        Conta conta = contaRepository.findById(id).orElseThrow(()-> new ContaNaoEncontradoException("Conta nao encontrada!"));
         contaRepository.delete(conta);
     }
 
     public void alternarStatus (Long numero){
-        Conta conta = contaRepository.findByNumero(numero).orElseThrow();
+        Conta conta = contaRepository.findByNumero(numero).orElseThrow(()-> new ContaNaoEncontradoException("Conta nao encontrada!"));
         conta.alterarStatus();
         contaRepository.save(conta);
 

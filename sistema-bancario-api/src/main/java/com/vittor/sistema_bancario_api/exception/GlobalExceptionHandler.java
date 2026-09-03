@@ -36,6 +36,19 @@ public class GlobalExceptionHandler {
                 .body(Map.of("erro", exception.getMessage()));
     }
 
+    @ExceptionHandler(ClienteNaoEncontradoException.class)
+    public ResponseEntity<?> tratarClienteNaoEncontrado (ClienteNaoEncontradoException exception){
+        return ResponseEntity
+                .status(HttpStatus.NOT_FOUND)
+                .body(Map.of("erro", exception.getMessage()));
+    }
+
+    @ExceptionHandler(ContaNaoEncontradoException.class)
+    public ResponseEntity<?> tratarContaNaoEncontrada (ContaNaoEncontradoException exception){
+        return ResponseEntity
+                .status(HttpStatus.NOT_FOUND)
+                .body(Map.of("erro",exception.getMessage()));
+    }
 
 
 
