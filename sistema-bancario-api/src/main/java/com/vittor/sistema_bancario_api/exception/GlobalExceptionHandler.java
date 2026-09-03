@@ -29,6 +29,14 @@ public class GlobalExceptionHandler {
     }
 
 
+    @ExceptionHandler(ContaInativaException.class)
+        public ResponseEntity<?> tratarContaInativa(ContaInativaException exception){
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .body(Map.of("erro", exception.getMessage()));
+    }
+
+
 
 
     @ExceptionHandler(MethodArgumentNotValidException.class)

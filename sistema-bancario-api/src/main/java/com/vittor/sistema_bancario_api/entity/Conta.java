@@ -1,5 +1,6 @@
 package com.vittor.sistema_bancario_api.entity;
 
+import com.vittor.sistema_bancario_api.exception.ContaInativaException;
 import com.vittor.sistema_bancario_api.exception.SaldoInsuficienteException;
 import jakarta.persistence.*;
 
@@ -44,14 +45,27 @@ public class Conta {
         return cliente;
     }
 
+    public void alterarStatus(){
+        ativa = !ativa;
+
+    }
+
+
+
     public void depositar (BigDecimal valor){
+        if(!ativa) {
+            throw new ContaInativaException("Conta inativa!");
+        }
         if (valor.compareTo(BigDecimal.ZERO) > 0) {
             saldo = saldo.add(valor);
         }
     }
 
     public void sacar(BigDecimal valor){
-        if (saldo.compareTo(valor) < 0) {
+        if (!ativa){
+            throw new ContaInativaException("Conta inativa!");
+        }
+            if(saldo.compareTo(valor) < 0) {
             throw new SaldoInsuficienteException("Saldo insuficiente para realizar o saque");
         }
             saldo = saldo.subtract(valor);

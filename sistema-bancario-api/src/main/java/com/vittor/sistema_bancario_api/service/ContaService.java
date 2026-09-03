@@ -78,6 +78,13 @@ public class ContaService {
         contaRepository.delete(conta);
     }
 
+    public void alternarStatus (Long numero){
+        Conta conta = contaRepository.findByNumero(numero).orElseThrow();
+        conta.alterarStatus();
+        contaRepository.save(conta);
+
+    }
+
 
 
 

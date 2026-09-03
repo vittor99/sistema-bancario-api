@@ -53,5 +53,10 @@ public class ContaController {
         contaService.deletarConta(id);
     }
 
+    @PatchMapping("/contas/{numero}/alterarStatus")
+    public void alterarStatus (@PathVariable Long numero){
+        contaService.alternarStatus(numero);
+    }
+
 
 }
