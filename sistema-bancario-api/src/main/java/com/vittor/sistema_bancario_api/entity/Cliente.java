@@ -30,6 +30,10 @@ public class Cliente {
         this.telefone = telefone;
     }
 
+    public List<Conta> getContas() {
+        return contas;
+    }
+
     public Long getId(){
         return id;
     }

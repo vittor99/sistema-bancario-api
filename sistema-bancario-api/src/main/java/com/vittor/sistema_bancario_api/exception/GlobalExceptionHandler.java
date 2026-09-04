@@ -50,7 +50,19 @@ public class GlobalExceptionHandler {
                 .body(Map.of("erro",exception.getMessage()));
     }
 
+    @ExceptionHandler(TransferenciaInvalidaException.class)
+    public ResponseEntity<?> tratarTransferenciaInvalida (TransferenciaInvalidaException exception){
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .body(Map.of("erro",exception.getMessage()));
+    }
 
+    @ExceptionHandler(ClienteComContasException.class)
+    public ResponseEntity<?> tratarClienteComContas (ClienteComContasException exception){
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .body(Map.of("erro",exception.getMessage()));
+    }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<?> tratarErroValidacao(MethodArgumentNotValidException exception) {

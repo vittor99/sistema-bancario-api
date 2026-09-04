@@ -4,9 +4,11 @@ import com.vittor.sistema_bancario_api.entity.Cliente;
 import com.vittor.sistema_bancario_api.entity.Conta;
 import com.vittor.sistema_bancario_api.exception.ClienteNaoEncontradoException;
 import com.vittor.sistema_bancario_api.exception.ContaNaoEncontradoException;
+import com.vittor.sistema_bancario_api.exception.TransferenciaInvalidaException;
 import com.vittor.sistema_bancario_api.repository.ClienteRepository;
 import com.vittor.sistema_bancario_api.repository.ContaRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -61,7 +63,11 @@ public class ContaService {
         return conta;
     }
 
+    @Transactional
     public Conta transferir (Long numeroOrigem, Long numeroDestino, BigDecimal valor){
+        if (numeroOrigem.equals(numeroDestino)){
+            throw new TransferenciaInvalidaException("Não é possível transferir para a mesma conta");
+        }
         Conta contaOrigem = contaRepository.findByNumero(numeroOrigem).orElseThrow(()-> new ContaNaoEncontradoException("Conta nao encontrada!"));
         Conta contaDestino = contaRepository.findByNumero(numeroDestino).orElseThrow(()-> new ContaNaoEncontradoException("Conta nao encontrada!"));
 
@@ -72,7 +78,6 @@ public class ContaService {
         contaRepository.save(contaDestino);
 
         return contaOrigem;
-
     }
 
     public void deletarConta (Long id){

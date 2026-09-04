@@ -2,6 +2,7 @@ package com.vittor.sistema_bancario_api.service;
 
 
 import com.vittor.sistema_bancario_api.entity.Cliente;
+import com.vittor.sistema_bancario_api.exception.ClienteComContasException;
 import com.vittor.sistema_bancario_api.exception.ClienteNaoEncontradoException;
 import com.vittor.sistema_bancario_api.exception.CpfJaCadastradoException;
 import com.vittor.sistema_bancario_api.repository.ClienteRepository;
@@ -49,8 +50,10 @@ public class ClienteService {
 
 
     public void deletarCliente(Long id) {
-        Cliente cliente = clienteRepository.findById(id)
-                .orElseThrow(()-> new ClienteNaoEncontradoException("Cliente nao encontrado!"));
+        Cliente cliente = clienteRepository.findById(id).orElseThrow(()-> new ClienteNaoEncontradoException("Cliente nao encontrado!"));
+        if (!cliente.getContas().isEmpty()){
+            throw new ClienteComContasException("Não é possível excluir um cliente que possui contas vinculadas.");
+        }
         clienteRepository.delete(cliente);
     }
 

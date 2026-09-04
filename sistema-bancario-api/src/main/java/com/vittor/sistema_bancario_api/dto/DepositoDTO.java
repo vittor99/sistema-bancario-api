@@ -9,10 +9,7 @@ public class DepositoDTO {
     private BigDecimal valor;
 
     public DepositoDTO(){
-
     }
-
-
     public BigDecimal getValor() {
         return valor;
     }
