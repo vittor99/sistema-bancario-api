@@ -1,10 +1,12 @@
 package com.vittor.sistema_bancario_api.dto;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Positive;
 
 import java.math.BigDecimal;
 
 public class SaqueDTO {
+    @Schema (description = "Valor do saque, que deve ser maior que zero")
     @Positive (message = "O valor do saque deve ser maior que zero")
     private BigDecimal valor;
 
