@@ -1,5 +1,6 @@
 package com.vittor.sistema_bancario_api.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 
@@ -13,8 +14,11 @@ public class Cliente {
     private String nome;
     private String email;
     private String telefone;
+
     @Column(unique = true)
     private String cpf;
+
+    @JsonIgnore//Evita o loop entre Cliente e Conta ao gerar o JSON
     @OneToMany(mappedBy = "cliente")
     private List<Conta> contas;
 
