@@ -17,7 +17,6 @@ public class Conta {
     @ManyToOne
     private Cliente cliente;
 
-
     public Conta() {
 
     }
@@ -45,15 +44,14 @@ public class Conta {
         return cliente;
     }
 
-    public void alterarStatus(){
+    public void alterarStatus() {
         ativa = !ativa;
 
     }
 
 
-
-    public void depositar (BigDecimal valor){
-        if(!ativa) {
+    public void depositar(BigDecimal valor) {
+        if (!ativa) {
             throw new ContaInativaException("Conta inativa!");
         }
         if (valor.compareTo(BigDecimal.ZERO) > 0) {
@@ -61,14 +59,14 @@ public class Conta {
         }
     }
 
-    public void sacar(BigDecimal valor){
-        if (!ativa){
+    public void sacar(BigDecimal valor) {
+        if (!ativa) {
             throw new ContaInativaException("Conta inativa!");
         }
-            if(saldo.compareTo(valor) < 0) {
+        if (saldo.compareTo(valor) < 0) {
             throw new SaldoInsuficienteException("Saldo insuficiente para realizar o saque");
         }
-            saldo = saldo.subtract(valor);
+        saldo = saldo.subtract(valor);
 
     }
 }
