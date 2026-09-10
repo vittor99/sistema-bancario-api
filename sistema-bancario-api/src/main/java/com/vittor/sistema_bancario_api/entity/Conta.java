@@ -1,6 +1,7 @@
 package com.vittor.sistema_bancario_api.entity;
 
 import com.vittor.sistema_bancario_api.exception.ContaInativaException;
+import com.vittor.sistema_bancario_api.exception.ContaNaoEncontradoException;
 import com.vittor.sistema_bancario_api.exception.SaldoInsuficienteException;
 import jakarta.persistence.*;
 
@@ -22,6 +23,9 @@ public class Conta {
     }
 
     public Conta(Long numero, Cliente cliente) {
+        if (cliente == null) {
+            throw new IllegalArgumentException("Uma conta deve possuir um cliente");
+        }
         this.numero = numero;
         this.saldo = BigDecimal.ZERO;
         this.ativa = true;
