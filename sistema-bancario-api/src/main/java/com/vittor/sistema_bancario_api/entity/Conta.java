@@ -14,10 +14,11 @@ public class Conta {
     private Long id;
     private Long numero;
     private BigDecimal saldo;
+
     private boolean ativa;
+
     @ManyToOne
     private Cliente cliente;
-
     public Conta() {
 
     }
@@ -30,6 +31,10 @@ public class Conta {
         this.saldo = BigDecimal.ZERO;
         this.ativa = true;
         this.cliente = cliente;
+    }
+
+    public boolean isAtiva() {
+        return ativa;
     }
 
     public Long getId() {
