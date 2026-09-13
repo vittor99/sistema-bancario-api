@@ -16,6 +16,7 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -46,6 +47,25 @@ public class ContaServiceTest {
         assertEquals(conta, resultado);
     }
 
+    @Test
+    void deveSalvarConta (){
+        Cliente cliente = new Cliente("teste", "100", "teste", "32424");
+
+        when(clienteRepository.findById(1L))
+                .thenReturn(Optional.of(cliente));
+
+        when(contaRepository.buscarMaiorNumero())
+                .thenReturn(1000L);
+
+        when(contaRepository.save(any(Conta.class)))
+                .thenAnswer(invocation -> invocation.getArgument(0));
+
+        Conta resultado = contaService.salvarConta(1L);
+
+        assertEquals(1001L, resultado.getNumero());
+
+    }
+
 
 
     //negativos
@@ -61,6 +81,7 @@ public class ContaServiceTest {
         assertThrows(ContaNaoEncontradoException.class, () -> {
             contaService.buscarContaPorNumero(9999L);
         });
+
     }
 
 }
