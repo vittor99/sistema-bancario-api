@@ -12,6 +12,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.yaml.snakeyaml.events.Event;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -63,6 +64,24 @@ public class ContaServiceTest {
         Conta resultado = contaService.salvarConta(1L);
 
         assertEquals(1001L, resultado.getNumero());
+
+    }
+
+    @Test
+    void deveListarContas (){
+        Cliente cliente = new Cliente("teste", "100", "teste", "32424");
+
+        Conta conta1 = new Conta(100L, cliente);
+        Conta conta2 = new Conta(1001L, cliente);
+
+        List<Conta> contas = List.of(conta1, conta2);
+
+        when(contaRepository.findAll()).thenReturn(contas);
+
+        List<Conta> resultado = contaService.listarContas();
+
+        assertEquals(contas,resultado);
+
 
     }
 
