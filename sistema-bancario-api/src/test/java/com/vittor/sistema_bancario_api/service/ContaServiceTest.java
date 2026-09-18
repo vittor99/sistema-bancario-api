@@ -12,6 +12,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.yaml.snakeyaml.events.Event;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -84,6 +85,20 @@ public class ContaServiceTest {
 
 
     }
+
+     @Test
+     void deveDepositar (){
+        Cliente cliente = new Cliente("teste", "100", "teste", "32424");
+        Conta conta = new Conta(100L, cliente);
+
+         when(contaRepository.findByNumero(100L))
+                 .thenReturn(Optional.of(conta));
+
+       conta = contaService.depositar(100L,new BigDecimal("500"));
+
+       assertEquals(new BigDecimal("500"), conta.getSaldo());
+
+     }
 
 
 
