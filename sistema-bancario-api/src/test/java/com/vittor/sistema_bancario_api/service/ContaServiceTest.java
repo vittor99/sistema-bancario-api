@@ -100,6 +100,21 @@ public class ContaServiceTest {
 
      }
 
+     @Test
+     void deveSacar (){
+        Cliente cliente = new Cliente("teste", "100", "teste", "32424");
+        Conta conta = new Conta(100L, cliente);
+
+        when(contaRepository.findByNumero(100L)).thenReturn(Optional.of(conta));
+
+         conta.depositar(new BigDecimal("200"));
+
+        conta = contaService.sacar(100L, new BigDecimal("100"));
+
+        assertEquals(new BigDecimal("100"), conta.getSaldo());
+
+     }
+
 
 
     //negativos
