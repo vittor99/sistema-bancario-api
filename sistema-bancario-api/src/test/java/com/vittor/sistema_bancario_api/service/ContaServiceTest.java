@@ -115,6 +115,25 @@ public class ContaServiceTest {
 
      }
 
+     @Test
+     void deveTransferir (){
+        Cliente cliente = new Cliente ("teste", "100", "teste", "32424");
+        Conta conta1 = new Conta (100L, cliente);
+        Conta conta2 = new Conta (101L, cliente);
+
+        when (contaRepository.findByNumero(100L)).thenReturn(Optional.of(conta1));
+        when (contaRepository.findByNumero(101L)).thenReturn(Optional.of(conta2));
+
+        conta1.depositar(new BigDecimal("100"));
+        conta2.depositar(new BigDecimal("100"));
+
+        conta1 = contaService.transferir(100L,101L, new BigDecimal("50"));
+
+        assertEquals(new BigDecimal("50"), conta1.getSaldo());
+        assertEquals(new BigDecimal("150"), conta2.getSaldo());
+
+     }
+
 
 
     //negativos
