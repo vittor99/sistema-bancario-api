@@ -19,6 +19,7 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -131,6 +132,19 @@ public class ContaServiceTest {
 
         assertEquals(new BigDecimal("50"), conta1.getSaldo());
         assertEquals(new BigDecimal("150"), conta2.getSaldo());
+
+     }
+
+     @Test
+     void deveExcluirConta (){
+        Cliente cliente = new Cliente("teste", "100", "teste", "32424");
+        Conta conta = new Conta(100L, cliente);
+
+        when (contaRepository.findById(1L)).thenReturn(Optional.of(conta));
+
+        contaService.deletarConta(1L);
+
+        verify(contaRepository).delete(conta);
 
      }
 
