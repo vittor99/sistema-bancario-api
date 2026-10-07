@@ -148,6 +148,23 @@ public class ContaServiceTest {
 
      }
 
+     @Test
+     void deveAlternarStatus (){
+        Cliente cliente = new Cliente("teste", "100", "teste", "32424");
+        Conta conta = new Conta (100L, cliente);
+
+        when(contaRepository.findByNumero(100L)).thenReturn(Optional.of(conta));
+
+        contaService.alternarStatus(100L);
+
+        assertEquals(false, conta.isAtiva());
+        verify(contaRepository).save(conta);
+
+
+
+
+     }
+
 
 
     //negativos
