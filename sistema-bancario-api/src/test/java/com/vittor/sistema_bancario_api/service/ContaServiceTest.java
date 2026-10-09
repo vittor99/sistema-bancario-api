@@ -2,6 +2,7 @@ package com.vittor.sistema_bancario_api.service;
 
 import com.vittor.sistema_bancario_api.entity.Cliente;
 import com.vittor.sistema_bancario_api.entity.Conta;
+import com.vittor.sistema_bancario_api.exception.ClienteNaoEncontradoException;
 import com.vittor.sistema_bancario_api.exception.ContaNaoEncontradoException;
 import com.vittor.sistema_bancario_api.repository.ClienteRepository;
 import com.vittor.sistema_bancario_api.repository.ContaRepository;
@@ -180,7 +181,16 @@ public class ContaServiceTest {
         assertThrows(ContaNaoEncontradoException.class, () -> {
             contaService.buscarContaPorNumero(9999L);
         });
+    }
 
+    @Test
+    void deveRecusarClienteInexistente() {
+        when(clienteRepository.findById(99L))
+                .thenReturn(Optional.empty());
+
+        assertThrows(ClienteNaoEncontradoException.class, () -> {
+            contaService.salvarConta(99L);
+        });
     }
 
 }
